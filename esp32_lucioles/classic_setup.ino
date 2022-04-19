@@ -45,11 +45,15 @@ void connect_wifi(){
  delay(100); // ms
 
  Serial.println(String("\nAttempting to connect to SSIDs : "));
-// wifiMulti.addAP("safouane", "dibachat");
+ //wifiMulti.addAP("Livebox-B870", "MYCNcZqnvsWsiy7s52");
  //wifiMulti.addAP("HUAWEI-6EC2", "FGY9MLBL");
+ //wifiMulti.addAP("HUAWEI-553A", "QTM06RTT");
+// wifiMulti.addAP("GMAP", "vijx47050");
+ wifiMulti.addAP("PlanetCampus - Prive 004419", "pfjYj5maAPXSE");
+ wifiMulti.addAP("PlanetCampus - Prive 004421", "Mq3pwk9gYuJgn");
+ wifiMulti.addAP("safouane", "dibachat");
+ wifiMulti.addAP("Diane", "bintastik");
  //wifiMulti.addAP("TP-Link_F83F", "40082831");
-// wifiMulti.addAP("Miss", "123456789");
-wifiMulti.addAP("PlanetCampus - Prive 004436", "9D4qxedeFHFis");
  while(wifiMulti.run() != WL_CONNECTED) {
    delay(1000);
    Serial.print(".");
