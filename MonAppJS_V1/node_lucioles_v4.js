@@ -31,134 +31,144 @@ async function listDatabases(client){
 // asynchronous function named main() where we will connect to our
 // MongoDB cluster, call functions that query our database, and
 // disconnect from our cluster.
-async function v0(){
-    const mongoName = "lucioles"                   //Nom de la base
-    const mongoUri = 'mongodb://localhost:27017/'; //URL de connection		
-    //const mongoUri = 'mongodb://10.9.128.189:27017/'; //URL de connection		
-    //const mongoUri = 'mongodb+srv://menez:6poD2R2.....l@cluster0.x0zyf.mongodb.net/lucioles?retryWrites=true&w=majority';
+async function v0() {
+  const mongoName = "lucioles"; //Nom de la base
+  //const mongoUri = 'mongodb://localhost:27017/'; //URL de connection
+  //const mongoUri = 'mongodb://10.9.128.189:27017/'; //URL de connection
+  //const mongoUri = 'mongodb+srv://menez:pass...l@cluster0.x0zyf.mongodb.net/lucioles?retryWrites=true&w=majority';
+  const mongoUri ="mongodb+srv://Binta:Dioudere@cluster0.r6mmx.mongodb.net/lucioles?retryWrites=true&w=majority"; // connection  URI
+  //var mongoUri = process.env.MONGOLAB_URI;
 
-    //Now that we have our URI, we can create an instance of MongoClient.
-    const mg_client = new MongoClient(mongoUri,
-				      {useNewUrlParser:true, useUnifiedTopology:true});
+  //Now that we have our URI, we can create an instance of MongoClient.
+  const mg_client = new MongoClient(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-    // Connect to the MongoDB cluster
-    mg_client.connect(function(err,  mg_client){
-	if(err) throw err; // If connection to DB failed ... 
-   
-	//===============================================    
-	// Print databases in our cluster
-	listDatabases(mg_client);
+  // Connect to the MongoDB cluster
+  mg_client.connect(function (err, mg_client) {
+    if (err) throw err; // If connection to DB failed ...
 
-	//===============================================    
-	// Get a connection to the DB "lucioles" or create
-	dbo = mg_client.db(mongoName);
+    //===============================================
+    // Print databases in our cluster
+    listDatabases(mg_client);
 
-	// Remove "old collections : temp and light
-	dbo.listCollections({name: "temp"})
-	    .next(function(err, collinfo) {
-		if (collinfo) { // The collection exists
-		    //console.log('Collection temp already exists');
-		    dbo.collection("temp").drop() 
-		}
-	    });
+    //===============================================
+    // Get a connection to the DB "lucioles" or create
+    dbo = mg_client.db(mongoName);
 
-	dbo.listCollections({name: "light"})
-	    .next(function(err, collinfo) {
-		if (collinfo) { // The collection exists
-		    //console.log('Collection temp already exists');
-		    dbo.collection("light").drop() 
-		}
-	    });
+    // Remove "old collections : temp and light
+    dbo.listCollections({ name: "temp" }).next(function (err, collinfo) {
+      if (collinfo) {
+        // The collection exists
+        //console.log('Collection temp already exists');
+        dbo.collection("temp").drop();
+      }
+    });
 
-	//===============================================
-	// Connexion au broker MQTT distant
-	//
-	//const mqtt_url = 'http://192.168.1.11:1883'
-	//const mqtt_url = 'http://broker.hivemq.com'
-	const mqtt_url = 'http://test.mosquitto.org:1883'
-	var client_mqtt = mqtt.connect(mqtt_url);
-	
-	//===============================================
-	// Des la connexion, le serveur NodeJS s'abonne aux topics MQTT 
-	//
-	client_mqtt.on('connect', function () {
-	    client_mqtt.subscribe(TOPIC_LIGHT, function (err) {
-		if (!err) {
-		    //client_mqtt.publish(TOPIC_LIGHT, 'Hello mqtt')
-		    console.log('Node Server has subscribed to ', TOPIC_LIGHT);
-		}
-	    })
-	    client_mqtt.subscribe(TOPIC_TEMP, function (err) {
-		if (!err) {
-		    //client_mqtt.publish(TOPIC_TEMP, 'Hello mqtt')
-		    console.log('Node Server has subscribed to ', TOPIC_TEMP);
-		}
-	    })
-	})
+    dbo.listCollections({ name: "light" }).next(function (err, collinfo) {
+      if (collinfo) {
+        // The collection exists
+        //console.log('Collection temp already exists');
+        dbo.collection("light").drop();
+      }
+    });
 
-	//================================================================
-	// Callback de la reception des messages MQTT pour les topics sur
-	// lesquels on s'est inscrit.
-	// => C'est cette fonction qui alimente la BD !
-	//
-	client_mqtt.on('message', function (topic, message) {
-	    console.log("\nMQTT msg on topic : ", topic.toString());
-	    console.log("Msg payload : ", message.toString());
+    //===============================================
+    // Connexion au broker MQTT distant
+    //
+    //const mqtt_url = 'http://192.168.1.11:1883'
+    //const mqtt_url = 'http://broker.hivemq.com'
+    const mqtt_url = "http://test.mosquitto.org:1883";
+    var client_mqtt = mqtt.connect(mqtt_url);
 
-	    // Parsing du message supposé recu au format JSON
-	    message = JSON.parse(message);
-	    wh = message.who
-	    val = message.value
+    //===============================================
+    // Des la connexion, le serveur NodeJS s'abonne aux topics MQTT
+    //
+    client_mqtt.on("connect", function () {
+      client_mqtt.subscribe(TOPIC_LIGHT, function (err) {
+        if (!err) {
+          //client_mqtt.publish(TOPIC_LIGHT, 'Hello mqtt')
+          console.log("Node Server has subscribed to ", TOPIC_LIGHT);
+        }
+      });
+      client_mqtt.subscribe(TOPIC_TEMP, function (err) {
+        if (!err) {
+          //client_mqtt.publish(TOPIC_TEMP, 'Hello mqtt')
+          console.log("Node Server has subscribed to ", TOPIC_TEMP);
+        }
+      });
+    });
 
-	    // Debug : Gerer une liste de who pour savoir qui utilise le node server	
-	    let wholist = []
-	    var index = wholist.findIndex(x => x.who==wh)
-	    if (index === -1){
-		wholist.push({who:wh});	    
-	    }
-	    console.log("wholist using the node server :", wholist);
+    //================================================================
+    // Callback de la reception des messages MQTT pour les topics sur
+    // lesquels on s'est inscrit.
+    // => C'est cette fonction qui alimente la BD !
+    //
+    client_mqtt.on("message", function (topic, message) {
+      console.log("\nMQTT msg on topic : ", topic.toString());
+      console.log("Msg payload : ", message.toString());
 
-	    // Mise en forme de la donnee à stocker => dictionnaire
-	    // Le format de la date est iomportant => compatible avec le
-	    // parsing qui sera realise par hightcharts dans l'UI
-	    // cf https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_tolocalestring_date_all
-	    // vs https://jsfiddle.net/BlackLabel/tgahn7yv
-	    // var frTime = new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"});
-	    var frTime = new Date().toLocaleString("sv-SE", {timeZone: "Europe/Paris"});
-	    var new_entry = { date: frTime, // timestamp the value 
-			      who: wh,      // identify ESP who provide 
-			      value: val    // this value
-			    };
-	    
-	    // On recupere le nom basique du topic du message
-	    var key = path.parse(topic.toString()).base;
-	    // Stocker le dictionnaire qui vient d'etre créé dans la BD
-	    // en utilisant le nom du topic comme key de collection
-	    dbo.collection(key).insertOne(new_entry, function(err, res) {
-		if (err) throw err;
-		console.log("\nItem : ", new_entry, 
-		"\ninserted in db in collection :", key);
-	    });
+      // Parsing du message supposï¿½ recu au format JSON
+      message = JSON.parse(message);
+      wh = message.who;
+      val = message.value;
 
-	    // Debug : voir les collections de la DB 
-	    //dbo.listCollections().toArray(function(err, collInfos) {
-		// collInfos is an array of collection info objects
-		// that look like: { name: 'test', options: {} }
-	    //	console.log("List of collections currently in DB: ", collInfos); 
-	    //});
-	}) // end of 'message' callback installation
+      // Debug : Gerer une liste de who pour savoir qui utilise le node server
+      let wholist = [];
+      var index = wholist.findIndex((x) => x.who == wh);
+      if (index === -1) {
+        wholist.push({ who: wh });
+      }
+      console.log("wholist using the node server :", wholist);
 
-	//================================================================
-	// Fermeture de la connexion avec la DB lorsque le NodeJS se termine.
-	//
-	process.on('exit', (code) => {
-	    if (mg_client && mg_client.isConnected()) {
-		console.log('mongodb connection is going to be closed ! ');
-		mg_client.close();
-	    }
-	})
-	
-    });// end of MongoClient.connect
+      // Mise en forme de la donnee ï¿½ stocker => dictionnaire
+      // Le format de la date est iomportant => compatible avec le
+      // parsing qui sera realise par hightcharts dans l'UI
+      // cf https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_tolocalestring_date_all
+      // vs https://jsfiddle.net/BlackLabel/tgahn7yv
+      // var frTime = new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"});
+      var frTime = new Date().toLocaleString("sv-SE", {
+        timeZone: "Europe/Paris",
+      });
+      var new_entry = {
+        date: frTime, // timestamp the value
+        who: wh, // identify ESP who provide
+        value: val, // this value
+      };
+
+      // On recupere le nom basique du topic du message
+      var key = path.parse(topic.toString()).base;
+      // Stocker le dictionnaire qui vient d'etre crï¿½ï¿½ dans la BD
+      // en utilisant le nom du topic comme key de collection
+      dbo.collection(key).insertOne(new_entry, function (err, res) {
+        if (err) throw err;
+        console.log(
+          "\nItem : ",
+          new_entry,
+          "\ninserted in db in collection :",
+          key
+        );
+      });
+
+      // Debug : voir les collections de la DB
+      //dbo.listCollections().toArray(function(err, collInfos) {
+      // collInfos is an array of collection info objects
+      // that look like: { name: 'test', options: {} }
+      //	console.log("List of collections currently in DB: ", collInfos);
+      //});
+    }); // end of 'message' callback installation
+
+    //================================================================
+    // Fermeture de la connexion avec la DB lorsque le NodeJS se termine.
+    //
+    process.on("exit", (code) => {
+      if (mg_client && mg_client.isConnected()) {
+        console.log("mongodb connection is going to be closed ! ");
+        mg_client.close();
+      }
+    });
+  }); // end of MongoClient.connect
 }// end def main
 
 //================================================================
@@ -168,7 +178,7 @@ v0().catch(console.error);
 
 //====================================
 // Utilisation du framework express
-// Notamment gérér les routes 
+// Notamment gï¿½rï¿½r les routes 
 const express = require('express');
 // et pour permettre de parcourir les body des requetes
 const bodyParser = require('body-parser');
@@ -177,7 +187,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+//This lets you serve static files (such as HTML, CSS and JavaScript)
+//from the directory you specify. In this case, the files will be
+//served from a folder called public : 
+//app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.static(path.join(__dirname, '/')));
+
 app.use(function(request, response, next) { //Pour eviter les problemes de CORS/REST
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "*");
@@ -214,8 +231,8 @@ app.get('/esp/:what', function (req, res) {
     console.log("wants to GET ", wa);
     console.log("values from object ", wh);
     
-    // Récupération des nb derniers samples stockés dans
-    // la collection associée a ce topic (wa) et a cet ESP (wh)
+    // Rï¿½cupï¿½ration des nb derniers samples stockï¿½s dans
+    // la collection associï¿½e a ce topic (wa) et a cet ESP (wh)
     const nb = 200;
     key = wa
     //dbo.collection(key).find({who:wh}).toArray(function(err,result) {
@@ -232,8 +249,9 @@ app.get('/esp/:what', function (req, res) {
 //================================================================
 //==== Demarrage du serveur Web  =======================
 //================================================================
-// L'application est accessible sur le port 3000
+// L'application est accessible sur le port 3000 mais pas que !!!
 
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
+// cf https://stackoverflow.com/questions/4840879/nodejs-how-to-get-the-servers-port
+var listener = app.listen(process.env.PORT || 3000, function(){
+    console.log('Express Listening on port ' + listener.address().port); //Listening on port 8888
 });
