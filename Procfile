@@ -1,1 +1,1 @@
-web: node MonAppJS_V1\node_lucioles_v4.js
+web: node ./MonAppJS_V1/node_lucioles_v4.js
