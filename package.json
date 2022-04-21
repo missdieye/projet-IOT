@@ -5,8 +5,8 @@
 	"main": "node_lucioles_v4.js",
 	"dependencies": {
 		"express": "^4.17.3",
-		"mqtt": "^4.3.7",
-		"mongodb": "^4.4.1"
+		"mongodb": "^4.4.1",
+		"mqtt": "^4.3.7"
 	},
 	"devDependencies": {},
 	"scripts": {

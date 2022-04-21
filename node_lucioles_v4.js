@@ -225,7 +225,8 @@ app.get("/esp/:what", function (req, res) {
 			if (err) throw err;
 			console.log("get on ", key);
 			console.log(result);
-			res.json(result.reverse()); // This is the response.
+			var data = res.json(result.reverse()); // This is the response.
+			// res.render("ui_lucioles.html", { series: data });
 			console.log("end find");
 		});
 	console.log("end app.get");
