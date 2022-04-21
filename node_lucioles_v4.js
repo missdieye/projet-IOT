@@ -232,6 +232,7 @@ app.get("/esp/:what", function (req, res) {
 	console.log("end app.get");
 });
 
+app.get("/infos", function (req, res) {});
 //================================================================
 //==== Demarrage du serveur Web  =======================
 //================================================================
