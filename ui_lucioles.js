@@ -133,8 +133,8 @@ function get_samples(path_on_node, serie, wh) {
 	});
 }
 function getConnectedESP(path_on_node) {
-	// node_url = "https://iot22112951m1.herokuapp.com";
-	node_url = "http://localhost:3000";
+	node_url = "https://iot22112951m1.herokuapp.com";
+	// node_url = "http://localhost:3000";
 	let listeData = [];
 	$.ajax({
 		url: node_url.concat(path_on_node), // URL to "GET" : /connectedESP
