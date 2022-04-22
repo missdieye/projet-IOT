@@ -1,6 +1,7 @@
 // Importation des modules
 var path = require("path");
 
+var alert = require("alert");
 // var, const, let :
 // https://medium.com/@vincent.bocquet/var-let-const-en-js-quelles-diff%C3%A9rences-b0f14caa2049
 
@@ -198,6 +199,59 @@ app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname + "/ui_lucioles.html"));
 });
 
+function verifyMac(mac) {
+	var regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+	return regex.test(mac);
+}
+
+// Route pour s'incrire a ESPs Lucioles
+app.post("/signup", function (req, res) {
+	var goodMac = verifyMac(req.body.macEsp);
+	if (goodMac) {
+		var new_user = {
+			username: req.body.username,
+			macEsp: req.body.macEsp,
+			lattitude: req.body.lattitude,
+			longitude: req.body.longitude,
+			permission: false
+		};
+		dbo.collection("users").insertOne(new_user, function (err, res) {
+			if (err) throw err;
+		});
+		alert("Compte créé avec succès ! Vous pourrez vous connecter une fois l'administrateur valide votre compte.");
+		res.redirect("/login.html");
+	} else {
+		alert("MAC address not valid");
+		res.redirect("/login.html");
+	}
+});
+
+// Route pour se connecter à ESPs Lucioles
+app.post("/login", function (req, res) {
+	var search_user = {
+		username: req.body.username,
+		macEsp: req.body.macEsp
+	};
+	if (search_user.username == "admin" && search_user.macEsp == "admin") {
+		res.redirect("/utilisateurInscrit.html");
+	} else {
+		dbo.collection("users").findOne({ username: search_user.username, macEsp: search_user.macEsp }, function (err, result) {
+			if (err) throw err;
+			console.log("\nUser retrouvé : ", result);
+		});
+	}
+});
+
+// Liste des utilisateurs inscrits
+app.get("/users", function (req, res) {
+	dbo.collection("users")
+		.find({})
+		.toArray(function (err, result) {
+			if (err) throw err;
+			console.log("\nListe des utilisateurs inscrits : ", result);
+			res.send(result);
+		});
+});
 // The request contains the name of the targeted ESP !
 //     /esp/temp?who=80%3A7D%3A3A%3AFD%3AC9%3A44
 // Exemple d'utilisation de routes dynamiques

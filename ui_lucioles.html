@@ -7,8 +7,46 @@
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="ui_lucioles.js"></script>
+		<style>
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #427cb5;
+			}
+
+			li {
+				float: left;
+			}
+
+			li a {
+				display: block;
+				color: white;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+			}
+
+			li a:hover:not(.active) {
+				background-color: #4caf50;
+			}
+
+			.active {
+				background-color: #2a4f73;
+			}
+
+			.login {
+				background-color: #4caf50;
+			}
+		</style>
 	</head>
 	<body>
+		<ul>
+			<li><a class="active" href="/">Accueil</a></li>
+			<li><a href="./Leaflet_esp/index.html">Maps</a></li>
+			<li style="float: right"><a class="login" href="./login.html">Se connecter</a></li>
+		</ul>
 		<h1 style="max-width: 600px; margin: 0 auto" ; align="center">ESPs of Lucioles</h1>
 
 		<br />
@@ -17,35 +55,3 @@
 		<div id="mydiv"></div>
 	</body>
 </html>
-<!-- <script>
-	var series;
-	Highcharts.chart("container1", {
-		chart: {
-			zoomType: "x",
-			panning: true,
-			panKey: "shift"
-		},
-
-		boost: {
-			useGPUTranslations: true
-		},
-
-		title: {
-			text: "Highcharts drawing   points"
-		},
-
-		subtitle: {
-			text: "Using the Boost module"
-		},
-
-		tooltip: {
-			valueDecimals: 2
-		},
-
-		series: [
-			{
-				data: [1, 0, 4, 5, 7, 3, 2, 1, 9]
-			}
-		]
-	});
-</script> -->
