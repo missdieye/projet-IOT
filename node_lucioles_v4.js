@@ -117,6 +117,10 @@ async function v0() {
 			}
 			console.log("wholist using the node server :", wholist);
 
+			app.get("/connectedESP", function (req, res) {
+				return res.send(wholist);
+			});
+
 			// Mise en forme de la donnee � stocker => dictionnaire
 			// Le format de la date est iomportant => compatible avec le
 			// parsing qui sera realise par hightcharts dans l'UI
@@ -225,14 +229,12 @@ app.get("/esp/:what", function (req, res) {
 			if (err) throw err;
 			console.log("get on ", key);
 			console.log(result);
-			var data = res.json(result.reverse()); // This is the response.
-			// res.render("ui_lucioles.html", { series: data });
+			res.json(result.reverse()); // This is the response.
 			console.log("end find");
 		});
 	console.log("end app.get");
 });
 
-app.get("/infos", function (req, res) {});
 //================================================================
 //==== Demarrage du serveur Web  =======================
 //================================================================
