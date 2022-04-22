@@ -58,18 +58,23 @@ function init() {
 	});
 
 	//=== Gestion de la flotte d'ESP =================================
-	var which_esps = getConnectedESP("/connectedESP");
-	// var which_esps = [
-	// 	"30:AE:A4:93:50:0C",
-	// 	"1761716416"
-	// 	//	"80:7D:3A:FD:C9:44"
-	// ];
+	// var which_esps = [];
+	// while (which_esps.length === 0) {
+	// 	which_esps = setInterval(getConnectedESP("/connectedESP"), 5000);
+	// }
+	var which_esps = [
+		"30:AE:A4:93:50:0C",
+		"24:6F:28:7B:96:74"
+		//	"80:7D:3A:FD:C9:44"
+	];
 	// console.log("esps", which_esps);
 
 	for (var i = 0; i < which_esps.length; i++) {
 		process_esp(which_esps, i);
 	}
 }
+
+function searchConnectedESP() {}
 
 //=== Installation de la periodicite des requetes GET============
 function process_esp(which_esps, i) {
@@ -141,7 +146,6 @@ function getConnectedESP(path_on_node) {
 		type: "GET",
 		headers: { Accept: "application/json" },
 		success: function (resultat) {
-			// console.log("resultat", resultat);
 			resultat.forEach(function (element) {
 				listeData.push(element.who);
 			});
@@ -150,7 +154,7 @@ function getConnectedESP(path_on_node) {
 		complete: function (resultat, statut) {}
 	});
 
-	// console.log("listeData", listeData);
+	console.log("listeData", listeData);
 	return listeData;
 }
 //assigns the onload event to the function init.
