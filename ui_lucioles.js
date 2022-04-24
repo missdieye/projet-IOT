@@ -61,7 +61,10 @@ function init() {
 
 	var esps = getConnectedESP("/connectedESP");
 	console.log("esps", esps);
-	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
+	var which_esps = [
+		"30:AE:A4:93:50:0C"
+		// , "24:6F:28:7B:96:74"
+	];
 
 	for (var i = 0; i < which_esps.length; i++) {
 		process_esp(which_esps, i);
