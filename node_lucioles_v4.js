@@ -1,6 +1,6 @@
 // Importation des modules
 var path = require("path");
-
+var moment = require("moment");
 const cookieParser = require("cookie-parser");
 var session = require("express-session");
 var alert = require("alert");
@@ -114,10 +114,9 @@ async function v0() {
 			val = message.value;
 
 			// Debug : Gerer une liste de who pour savoir qui utilise le node server
-
 			var index = wholist.findIndex(x => x.who == wh);
 			if (index === -1) {
-				wholist.push({ who: wh });
+				wholist.push({ who: wh, lastConnect: moment().format("MMMM DD YYYY, h:mm:ss") });
 			}
 			console.log("wholist using the node server :", wholist);
 
