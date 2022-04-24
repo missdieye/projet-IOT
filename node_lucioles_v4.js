@@ -103,6 +103,7 @@ async function v0() {
 		// lesquels on s'est inscrit.
 		// => C'est cette fonction qui alimente la BD !
 		//
+		let wholist = [];
 		client_mqtt.on("message", function (topic, message) {
 			console.log("\nMQTT msg on topic : ", topic.toString());
 			console.log("Msg payload : ", message.toString());
@@ -113,7 +114,7 @@ async function v0() {
 			val = message.value;
 
 			// Debug : Gerer une liste de who pour savoir qui utilise le node server
-			let wholist = [];
+
 			var index = wholist.findIndex(x => x.who == wh);
 			if (index === -1) {
 				wholist.push({ who: wh });
