@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="settingsUserEsp.js"></script>
 		<style>
 			ul {
 				list-style-type: none;
@@ -47,8 +48,9 @@
 			}
 			.main {
 				width: 450px;
-				height: 500px;
-				background: red;
+				height: 300px;
+				margin-top: 100px;
+				margin-left: 30px;
 				overflow: hidden;
 				background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
 					no-repeat center/ cover;
@@ -65,10 +67,10 @@
 			}
 			label {
 				color: #fff;
-				font-size: 20px;
+				font-size: 15px;
 				justify-content: center;
 				display: flex;
-				margin: 60px;
+				margin-top: 15px;
 				font-weight: bold;
 				cursor: pointer;
 				transition: 0.5s ease-in-out;
@@ -95,7 +97,7 @@
 				background: #573b8a;
 				font-size: 1em;
 				font-weight: bold;
-				margin-top: 20px;
+				margin-top: 50px;
 				outline: none;
 				border: none;
 				border-radius: 5px;
@@ -105,64 +107,53 @@
 			button:hover {
 				background: #6d44b8;
 			}
-			.login {
-				height: 460px;
-				background: #eee;
-				border-radius: 60% / 10%;
-				transform: translateY(-180px);
-				transition: 0.8s ease-in-out;
-			}
-			.login label {
-				color: #2a4f73;
-				transform: scale(0.6);
-			}
-
-			#chk:checked ~ .login {
-				transform: translateY(-500px);
-			}
-			#chk:checked ~ .login label {
-				transform: scale(1);
-			}
-			#chk:checked ~ .signup label {
-				transform: scale(0.6);
-			}
-			.form {
+			.settings {
 				display: flex;
-				margin-top: 30px;
+				justify-content: center;
+				align-items: center;
+				margin-top: -50px;
+			}
+			h2 {
+				color: white;
+				display: flex;
 				align-items: center;
 				justify-content: center;
+			}
+			h1#titre {
+				text-align: center;
+			}
+			p {
+				color: crimson;
+			}
+			.deconect {
+				background-color: rgb(187, 16, 16);
+			}
+			i {
+				color: aliceblue;
 			}
 		</style>
 	</head>
 	<body>
 		<ul>
-			<li><a href="/">Accueil</a></li>
-			<li><a href="./Leaflet_esp/index.html">Maps</a></li>
-			<li style="float: right"><a class="active" href="/">Se connecter</a></li>
+			<!-- <li><a href="/">Accueil</a></li>
+			<li><a href="./Leaflet_esp/index.html">Maps</a></li> -->
+			<li style="float: right"><a class="deconect" href="/">Se déconnecter</a></li>
 		</ul>
-		<div class="form">
+		<h1 id="titre"></h1>
+		<div class="settings">
 			<div class="main">
-				<input type="checkbox" id="chk" aria-hidden="true" />
+				<h2>Publier/Dépublier</h2>
+				<i>Cliquez sur le bouton <b>Connecter mon esp</b> pour publier vos données dans le site.</i>
 
-				<div class="signup">
-					<form action="/login" method="post">
-						<label for="chk" aria-hidden="true">Se connecter sur ESPs Lucioles</label>
-						<input type="text" name="username" placeholder="Nom d'utilisateur" required="" />
-						<input type="text" name="macEsp" placeholder="MAC de l'ESP" required="" />
-						<button>Se connecter</button>
-					</form>
-				</div>
+				<div id="divConnect"></div>
+			</div>
 
-				<div class="login">
-					<form action="/signup" method="post">
-						<label for="chk" aria-hidden="true">S'inscrire sur ESPs Lucioles</label>
-						<input type="text" name="username" placeholder="Nom d'utilisateur" required="" />
-						<input type="text" name="macEsp" placeholder="MAC de l'ESP" required="" />
-						<input type="text" name="lattitude" placeholder="lattitude d'où se trouve l'esp" required="" />
-						<input type="text" name="longitude" placeholder="longitude d'où se trouve l'esp" required="" />
-						<button>S'inscrire</button>
-					</form>
-				</div>
+			<div class="main">
+				<h2>Supprimer mon ESP</h2>
+				<i>Cliquez sur le bouton <b>Supprimer mon ESP</b> pour suppimer votre ESP du site.</i>
+				<form method="post" action="/supprimer">
+					<button>Supprimer mon ESP</button>
+				</form>
 			</div>
 		</div>
 		<br />

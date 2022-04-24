@@ -2,7 +2,6 @@ function init() {
 	//=== Page utilisateur inscrit =================================
 	getUser("/users");
 }
-
 function getUser(path_on_node) {
 	node_url = "https://iot22112951m1.herokuapp.com";
 	// node_url = "http://localhost:3000";
@@ -14,12 +13,17 @@ function getUser(path_on_node) {
 		success: function (resultat) {
 			resultat.forEach(function (element) {
 				listeData.push(element);
+				// if (element.permission) {
+				// 	var permission = "ESP Accepté";
+				// } else {
+				// 	var permission = "ESP Refusé";
+				// }
 				$("#tableUsers").append(`<tr>
 			  <td>${element.username}</td>
 			  <td>${element.macEsp}</td>
 			  <td>{${element.lattitude},${element.longitude}}</td>
-			  <td>${element.permission}</td>
-              <td><button class="confirmer">Confirmer</button> <button class="decliner">Décliner</button></td>
+			  <td> Connecté</td>
+              <td><form action="/accepter/${element.macEsp}" method="post"><button class="confirmer">Accepter</button></form><form action="/refuser/${element.macEsp}" method="post"> <button class="decliner">Refuser</button></td></form>
 		  </tr>`);
 			});
 			console.log("resultat", resultat);

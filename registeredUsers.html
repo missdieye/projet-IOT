@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="utilisateurInscrit.js"></script>
+		<script src="registeredUsers.js"></script>
 		<style>
 			ul {
 				list-style-type: none;
@@ -45,7 +45,7 @@
 			td,
 			th {
 				border: 1px solid #dddddd;
-				text-align: left;
+				text-align: center;
 				padding: 8px;
 			}
 
@@ -53,7 +53,6 @@
 				background-color: #dddddd;
 			}
 			.confirmer {
-				width: 45%;
 				height: 40px;
 				margin: 10px auto;
 				justify-content: center;
@@ -68,11 +67,13 @@
 				transition: 0.2s ease-in;
 				cursor: pointer;
 			}
+			.deconect {
+				background-color: red;
+			}
 			.confirmer:hover {
 				background: #4caf50;
 			}
 			.decliner {
-				width: 40%;
 				height: 40px;
 				margin: 10px auto;
 				justify-content: center;
@@ -88,7 +89,10 @@
 				cursor: pointer;
 			}
 			.decliner:hover {
-				background: red;
+				background: rgb(177, 19, 19);
+			}
+			form {
+				display: contents;
 			}
 		</style>
 	</head>
@@ -96,7 +100,7 @@
 		<ul>
 			<li><a class="active" href="/">Accueil</a></li>
 			<li><a href="./Leaflet_esp/index.html">Maps</a></li>
-			<li style="float: right"><a class="login" href="./login.html">Se connecter</a></li>
+			<li style="float: right"><a class="deconect" href="/">Se déconnecter</a></li>
 		</ul>
 		<h1 style="max-width: 600px; margin: 0 auto" ; align="center">ESPs of Lucioles</h1>
 
@@ -106,7 +110,7 @@
 				<th>Nom d'utilisateur</th>
 				<th>Adresse ESP</th>
 				<th>{lattitude,longitude}</th>
-				<th>Etat Permission</th>
+				<th>Etat ESP</th>
 				<th>Actions</th>
 			</tr>
 		</table>

@@ -66,9 +66,6 @@ function init() {
 	for (var i = 0; i < which_esps.length; i++) {
 		process_esp(which_esps, i);
 	}
-
-	//=== Page utilisateur inscrit =================================
-	getUser("/users");
 }
 
 //=== Installation de la periodicite des requetes GET============

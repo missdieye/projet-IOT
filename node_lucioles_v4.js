@@ -1,6 +1,8 @@
 // Importation des modules
 var path = require("path");
 
+const cookieParser = require("cookie-parser");
+var session = require("express-session");
 var alert = require("alert");
 // var, const, let :
 // https://medium.com/@vincent.bocquet/var-let-const-en-js-quelles-diff%C3%A9rences-b0f14caa2049
@@ -188,7 +190,14 @@ app.use(function (request, response, next) {
 	response.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
 	next();
 });
-
+//session for users
+app.use(
+	session({
+		secret: "thisismysecretekey",
+		macEsp: ""
+	})
+);
+app.use(cookieParser());
 //================================================================
 // Answering GET request on this node ... probably from navigator.
 // => REQUETES HTTP reconnues par le Node
@@ -199,6 +208,7 @@ app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname + "/ui_lucioles.html"));
 });
 
+// Fonction pour vérifier si le MAC du ESP est bien renseigné
 function verifyMac(mac) {
 	var regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
 	return regex.test(mac);
@@ -208,20 +218,29 @@ function verifyMac(mac) {
 app.post("/signup", function (req, res) {
 	var goodMac = verifyMac(req.body.macEsp);
 	if (goodMac) {
-		var new_user = {
-			username: req.body.username,
-			macEsp: req.body.macEsp,
-			lattitude: req.body.lattitude,
-			longitude: req.body.longitude,
-			permission: false
-		};
-		dbo.collection("users").insertOne(new_user, function (err, res) {
+		dbo.collection("users").findOne({ macEsp: req.body.macEsp }, function (err, result) {
 			if (err) throw err;
+			if (result) {
+				alert("Ce compte existe déjà ! Veuillez vous connecter");
+				res.redirect("/login.html");
+			} else {
+				var new_user = {
+					username: req.body.username,
+					macEsp: req.body.macEsp,
+					lattitude: req.body.lattitude,
+					longitude: req.body.longitude,
+					permission_user: false,
+					permission_admin: false
+				};
+				dbo.collection("users").insertOne(new_user, function (err, res) {
+					if (err) throw err;
+				});
+				alert("Compte créé avec succès ! Vous pouvez maintenant vous connecter.");
+				res.redirect("/login.html");
+			}
 		});
-		alert("Compte créé avec succès ! Vous pourrez vous connecter une fois l'administrateur valide votre compte.");
-		res.redirect("/login.html");
 	} else {
-		alert("MAC address not valid");
+		alert("Veuillez entrer l'adresse MAC valide de votre ESP !");
 		res.redirect("/login.html");
 	}
 });
@@ -232,26 +251,85 @@ app.post("/login", function (req, res) {
 		username: req.body.username,
 		macEsp: req.body.macEsp
 	};
+	req.session.macEsp = req.body.macEsp;
 	if (search_user.username == "admin" && search_user.macEsp == "admin") {
-		res.redirect("/utilisateurInscrit.html");
+		res.redirect("/registeredUsers.html");
 	} else {
 		dbo.collection("users").findOne({ username: search_user.username, macEsp: search_user.macEsp }, function (err, result) {
 			if (err) throw err;
-			console.log("\nUser retrouvé : ", result);
+			if (result) {
+				res.redirect("/settingsUserEsp.html");
+			} else {
+				alert("Votre nom d'utilisateur ou votre MAC address n'est pas reconnu.");
+				res.redirect("/login.html");
+			}
 		});
 	}
 });
 
-// Liste des utilisateurs inscrits
+// Liste des utilisateurs voulant publier sur le site
 app.get("/users", function (req, res) {
 	dbo.collection("users")
-		.find({})
+		.find({ permission_user: true })
 		.toArray(function (err, result) {
 			if (err) throw err;
-			console.log("\nListe des utilisateurs inscrits : ", result);
+			// console.log("\nListe des utilisateurs inscrits : ", result);
 			res.send(result);
 		});
 });
+
+// Vérifie si l'administrateur a accepté la demande d'un nouvel utilisateur
+app.get("/permissionAdmin", function (req, res) {
+	dbo.collection("users").findOne({ macEsp: req.session.macEsp }, function (err, result) {
+		if (err) throw err;
+		res.send(result);
+	});
+});
+
+// Accepter une demande d'ajout d'un utilisateur
+app.post("/accepter/:macEsp", function (req, res) {
+	dbo.collection("users").updateOne({ macEsp: req.params.macEsp }, { $set: { permission_admin: true } }, function (err, result) {
+		if (err) throw err;
+		res.redirect("/registeredUsers.html");
+	});
+});
+// Refuser une demande d'ajout d'un utilisateur
+app.post("/refuser/:macEsp", function (req, res) {
+	dbo.collection("users").updateOne({ macEsp: req.params.macEsp }, { $set: { permission_admin: false } }, function (err, result) {
+		if (err) throw err;
+		res.redirect("/registeredUsers.html");
+	});
+});
+
+// Demande d'un utilisateur pour publier ces données
+app.post("/publier", function (req, res) {
+	dbo.collection("users").updateOne({ macEsp: req.session.macEsp }, { $set: { permission_user: true } }, function (err, result) {
+		if (err) throw err;
+		res.redirect("/settingsUserEsp.html");
+	});
+});
+
+// Demande d'un utilisateur pour dépublier ces données
+app.post("/depublier", function (req, res) {
+	dbo.collection("users").updateOne(
+		{ macEsp: req.session.macEsp },
+		{ $set: { permission_user: false, permission_admin: false } },
+		function (err, result) {
+			if (err) throw err;
+			res.redirect("/settingsUserEsp.html");
+		}
+	);
+});
+
+// Demande d'un utilisateur pour supprimer son ESP
+app.post("/supprimer", function (req, res) {
+	dbo.collection("users").deleteOne({ macEsp: req.session.macEsp }, function (err, result) {
+		if (err) throw err;
+	});
+	alert("Votre compte a été supprimé avec succès !");
+	res.redirect("/ui_lucioles.html");
+});
+
 // The request contains the name of the targeted ESP !
 //     /esp/temp?who=80%3A7D%3A3A%3AFD%3AC9%3A44
 // Exemple d'utilisation de routes dynamiques
