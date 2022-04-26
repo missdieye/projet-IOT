@@ -59,12 +59,15 @@ function init() {
 
 	//=== Gestion de la flotte d'ESP =================================
 
-	var which_esps = [
-		"30:AE:A4:93:50:0C"
-		// , "24:6F:28:7B:96:74"
-	];
+	// var which_esps = [];
+	// which_esps = getauthorizedESP("/authorizedEsp");
+	// setTimeout(console.log("esps", which_esps, which_esps.length), 10000);
+
+	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
+	// console.log("esps", which_esps);
 
 	for (var i = 0; i < which_esps.length; i++) {
+		console.log("esps", which_esps[i]);
 		process_esp(which_esps, i);
 	}
 }
@@ -129,6 +132,24 @@ function get_samples(path_on_node, serie, wh) {
 		error: function (resultat, statut, erreur) {},
 		complete: function (resultat, statut) {}
 	});
+}
+function getauthorizedESP(path_on_node) {
+	node_url = "https://iot22112951m1.herokuapp.com";
+	// node_url = "http://localhost:3000";
+	// let listeData = [];
+	var res = $.ajax({
+		url: node_url.concat(path_on_node), // URL to "GET" : /connectedESP
+		type: "GET",
+		headers: { Accept: "application/json ;charset=utf-8" },
+		success: function (resultat) {
+			console.log("resultat", resultat);
+			return resultat;
+		},
+		error: function (resultat, statut, erreur) {},
+		complete: function (resultat, statut) {}
+	});
+	console.log("listeData", res);
+	// return listeData;
 }
 
 //assigns the onload event to the function init.

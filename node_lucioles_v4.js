@@ -330,6 +330,21 @@ app.post("/supprimer", function (req, res) {
 	res.redirect("/ui_lucioles.html");
 });
 
+// Liste des ESP autorisés à publier sur le site
+app.get("/authorizedEsp", function (req, res) {
+	listEsps = [];
+	dbo.collection("users")
+		.find({ permission_user: true, permission_admin: true })
+		.toArray(function (err, result) {
+			if (err) throw err;
+			result.forEach(function (esp) {
+				listEsps.push(esp.macEsp);
+			});
+
+			res.send(listEsps);
+		});
+});
+
 // The request contains the name of the targeted ESP !
 //     /esp/temp?who=80%3A7D%3A3A%3AFD%3AC9%3A44
 // Exemple d'utilisation de routes dynamiques

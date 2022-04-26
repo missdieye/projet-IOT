@@ -5,6 +5,7 @@
 	"main": "node_lucioles_v4.js",
 	"dependencies": {
 		"alert": "^5.0.10",
+		"axios": "^0.26.1",
 		"cookie-parser": "^1.4.6",
 		"express": "^4.17.3",
 		"express-session": "^1.17.2",
