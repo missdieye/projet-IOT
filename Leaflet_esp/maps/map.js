@@ -44,7 +44,7 @@ function onMapClick(e) {
         weathertime = data.dt; // Time of weatherdata (UTC)
         temperature = data.main.temp; // Kelvin
         airpressure = data.main.pressure; // hPa
-        airhumidity = data.main.humidity; // %
+        airhumidity = data.main.humidity; 
         temperature_min = data.main.temp_min; // Kelvin
         temperature_max = data.main.temp_max; // Kelvin
         windspeed = data.wind.speed; // Meter per second
@@ -55,7 +55,6 @@ function onMapClick(e) {
         weatherconditiondescription = data.weather[0].description; // Weatherdescription
         weatherconditionicon = data.weather[0].icon; // ID of weathericon
 
-        // Converting Unix UTC Time
         var utctimecalc = new Date(weathertime * 1000);
         var months = [
           "01",
