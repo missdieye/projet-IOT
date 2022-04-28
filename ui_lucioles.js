@@ -62,20 +62,20 @@ function init() {
 	// var which_esps = [];
 	// which_esps = getauthorizedESP("/authorizedEsp");
 	// setTimeout(console.log("esps", which_esps, which_esps.length), 10000);
+	processAuthorizedESP("/authorizedEsp");
+	// var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
+	// // console.log("esps", which_esps);
 
-	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
-	// console.log("esps", which_esps);
-
-	for (var i = 0; i < which_esps.length; i++) {
-		console.log("esps", which_esps[i]);
-		process_esp(which_esps, i);
-	}
+	// for (var i = 0; i < which_esps.length; i++) {
+	// 	console.log("esps", which_esps[i]);
+	// 	process_esp(which_esps, i);
+	// }
 }
 
 //=== Installation de la periodicite des requetes GET============
 function process_esp(which_esps, i) {
 	const refreshT = 10000; // Refresh period for chart
-	esp = which_esps[i]; // L'ESP "a dessiner"
+	esp = which_esps; // L'ESP "a dessiner"
 	//console.log(esp) // cf console du navigateur
 
 	// Gestion de la temperature
@@ -133,23 +133,24 @@ function get_samples(path_on_node, serie, wh) {
 		complete: function (resultat, statut) {}
 	});
 }
-function getauthorizedESP(path_on_node) {
-	node_url = "https://iot22112951m1.herokuapp.com";
-	// node_url = "http://localhost:3000";
-	// let listeData = [];
-	var res = $.ajax({
+function processAuthorizedESP(path_on_node) {
+	// node_url = "https://iot22112951m1.herokuapp.com";
+	node_url = "http://localhost:3000";
+	$.ajax({
 		url: node_url.concat(path_on_node), // URL to "GET" : /connectedESP
 		type: "GET",
 		headers: { Accept: "application/json ;charset=utf-8" },
+		dataType: "json",
 		success: function (resultat) {
-			console.log("resultat", resultat);
+			for (let index = 0; index < resultat.length; index++) {
+				const element = resultat[index];
+				console.log("element, index", element, index);
+				process_esp(element, index);
+			}
+
 			return resultat;
-		},
-		error: function (resultat, statut, erreur) {},
-		complete: function (resultat, statut) {}
+		}
 	});
-	console.log("listeData", res);
-	// return listeData;
 }
 
 //assigns the onload event to the function init.

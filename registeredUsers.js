@@ -11,13 +11,23 @@ function getUser(path_on_node) {
 		headers: { Accept: "application/json" },
 		success: function (resultat) {
 			resultat.forEach(function (element) {
-				var lastConnect = getConnectedESP("/connectedESP", element.macEsp);
-				console.log("lastConnect", lastConnect[0]);
-				if (lastConnect.length > 0) {
-					var lasttime = lastConnect[0];
-				} else {
-					var lasttime = "Pas encore";
-				}
+				$.ajax({
+					url: node_url.concat("/connectedESP"), // URL to "GET" : /connectedESP
+					type: "GET",
+					headers: { Accept: "application/json" },
+					success: function (resultat) {
+						resultat.forEach(function (element2) {
+							if (element2.who === element.macEsp) {
+								console.log("element.lastConnect", element2.lastConnect);
+							}
+						});
+					}
+				});
+				// if (lastConnect.length > 0) {
+				// 	var lasttime = lastConnect[0];
+				// } else {
+				// 	var lasttime = "Pas encore";
+				// }
 				if (element.permission_admin) {
 					var permission = "ESP Accepté";
 
@@ -31,7 +41,7 @@ function getUser(path_on_node) {
 			  <td>${element.macEsp}</td>
 			  <td>{${element.lattitude},${element.longitude}}</td>
 			  <td> ${permission}</td>
-			  <td> ${lasttime}</td>
+			  <td id="lasttime"></td>
               <td>${form}</td>
 		  </tr>`);
 			});
