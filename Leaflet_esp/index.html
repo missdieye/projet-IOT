@@ -69,11 +69,49 @@
 	  height: 350px;
 	  max-width: 1000px;
       }
+	  ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #427cb5;
+			}
+
+			li {
+				float: left;
+			}
+
+			li a {
+				display: block;
+				color: white;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+			}
+
+			li a:hover:not(.active) {
+				background-color: #4caf50;
+			}
+
+			.active {
+				background-color: #2a4f73;
+			}
+
+			.login {
+				background-color: #4caf50;
+			}
     </style>
   </head>
 
   <body>
-    <h1>Leaflet for ESPs</h1>
+    
+	
+	<ul>
+			<li><a href="/">Accueil</a></li>
+			<li><a class="active" href="/">Maps</a></li>
+			<li style="float: right"><a class="login" href="../login.html">Se connecter</a></li>
+		</ul>
+		<h1>Leaflet for ESPs</h1>
 
     <!-- 
 	 =================== Map (and Markers) Division ========================

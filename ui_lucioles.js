@@ -61,13 +61,15 @@ function init() {
 
   //=== Gestion de la flotte d'ESP =================================
   var which_esps = [
-    "80:7D:3A:FD:E8:48",
+    //"80:7D:3A:FD:E8:48",
     //	,"1761716416"
     //	"80:7D:3A:FD:C9:44"
+    "30:AE:A4:93:50:0C",
+    "24:6F:28:7B:96:74",
   ];
 
   for (var i = 0; i < which_esps.length; i++) {
-    console.log("process_esp : ", i);
+    console.log("esps", which_esps[i]);
     process_esp(which_esps, i);
   }
 }
@@ -76,7 +78,7 @@ function init() {
 function process_esp(which_esps, i) {
   const refreshT = 10000; // Refresh period for chart
   esp = which_esps[i]; // L'ESP "a dessiner"
-  console.log("process_esp : ", esp); // cf console du navigateur
+  //console.log("process_esp : ", esp); // cf console du navigateur
 
   // Gestion de la temperature
   // premier appel pour eviter de devoir attendre RefreshT
@@ -90,7 +92,7 @@ function process_esp(which_esps, i) {
     chart1.series[i], // param 2 for get_samples()
     esp
   ); // param 3 for get_samples()
-
+console.log("esp", esp);
   // Gestion de la lumiere
   get_samples("/esp/light", chart2.series[i], esp);
   window.setInterval(
@@ -109,7 +111,7 @@ function get_samples(path_on_node, serie, wh) {
   // serie => for choosing chart/serie on the page
   // wh => which esp do we want to query data
 
-  console.log("get samples !");
+  //console.log("get samples !");
   //node_url = window.location.href;
   node_url = "https:// iot21912491m1.herokuapp.com";
   //node_url = 'http://localhost:3000'
@@ -134,6 +136,24 @@ function get_samples(path_on_node, serie, wh) {
     error: function (resultat, statut, erreur) {},
     complete: function (resultat, statut) {},
   });
+}
+function getauthorizedESP(path_on_node) {
+  node_url = "https:// iot21912491m1.herokuapp.com";
+  // node_url = "http://localhost:3000";
+  // let listeData = [];
+  var res = $.ajax({
+    url: node_url.concat(path_on_node), // URL to "GET" : /connectedESP
+    type: "GET",
+    headers: { Accept: "application/json ;charset=utf-8" },
+    success: function (resultat) {
+      console.log("resultat", resultat);
+      return resultat;
+    },
+    error: function (resultat, statut, erreur) {},
+    complete: function (resultat, statut) {},
+  });
+  console.log("listeData", res);
+  // return listeData;
 }
 
 //assigns the onload event to the function init.

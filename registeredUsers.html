@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="registeredUsers.js"></script>
+		<style>
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #427cb5;
+			}
+
+			li {
+				float: left;
+			}
+
+			li a {
+				display: block;
+				color: white;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+			}
+
+			li a:hover:not(.active) {
+				background-color: #4caf50;
+			}
+
+			.active {
+				background-color: #2a4f73;
+			}
+
+			.login {
+				background-color: #4caf50;
+			}
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			td,
+			th {
+				border: 1px solid #dddddd;
+				text-align: center;
+				padding: 8px;
+			}
+
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+			.confirmer {
+				height: 40px;
+				margin: 10px auto;
+				justify-content: center;
+				color: #fff;
+				background: rgb(116, 226, 116);
+				font-size: 1em;
+				font-weight: bold;
+				margin-top: 20px;
+				outline: none;
+				border: none;
+				border-radius: 5px;
+				transition: 0.2s ease-in;
+				cursor: pointer;
+			}
+			.deconect {
+				background-color: red;
+			}
+			.confirmer:hover {
+				background: #4caf50;
+			}
+			.decliner {
+				height: 40px;
+				margin: 10px auto;
+				justify-content: center;
+				color: #fff;
+				background: rgb(204, 91, 91);
+				font-size: 1em;
+				font-weight: bold;
+				margin-top: 20px;
+				outline: none;
+				border: none;
+				border-radius: 5px;
+				transition: 0.2s ease-in;
+				cursor: pointer;
+			}
+			.decliner:hover {
+				background: rgb(177, 19, 19);
+			}
+			form {
+				display: contents;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li><a class="active" href="/">Accueil</a></li>
+			<li><a href="./Leaflet_esp/index.html">Maps</a></li>
+			<li style="float: right"><a class="deconect" href="/">Se déconnecter</a></li>
+		</ul>
+		<h1 style="max-width: 600px; margin: 0 auto" ; align="center">ESPs of Lucioles</h1>
+
+		<br />
+		<table id="tableUsers">
+			<tr>
+				<th>Nom d'utilisateur</th>
+				<th>Adresse ESP</th>
+				<th>{lattitude,longitude}</th>
+				<th>Autorisation</th>
+				<th>Dernière publication aux topics</th>
+				<th>Actions</th>
+			</tr>
+		</table>
+	</body>
+</html>
