@@ -284,6 +284,17 @@ app.get("/users", function (req, res) {
 		});
 });
 
+// Recupérer les coordonnées des utilisateurs
+app.get("/coordonnees", function (req, res) {
+	dbo.collection("users")
+		.find()
+		.toArray(function (err, result) {
+			if (err) throw err;
+			// console.log("\nListe des utilisateurs inscrits : ", result);
+			res.send(result);
+		});
+});
+
 // Vérifie si l'administrateur a accepté la demande d'un nouvel utilisateur
 app.get("/permissionAdmin", function (req, res) {
 	dbo.collection("users").findOne({ macEsp: req.session.macEsp }, function (err, result) {
