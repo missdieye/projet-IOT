@@ -59,17 +59,14 @@ function init() {
 
 	//=== Gestion de la flotte d'ESP =================================
 
-	// var which_esps = [];
-	// which_esps = getauthorizedESP("/authorizedEsp");
-	// setTimeout(console.log("esps", which_esps, which_esps.length), 10000);
-	processAuthorizedESP("/authorizedEsp");
-	// var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
-	// // console.log("esps", which_esps);
+	// processAuthorizedESP("/authorizedEsp");
+	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74", "B4:E6:2D:AC:C0:C1"];
+	// console.log("esps", which_esps);
 
-	// for (var i = 0; i < which_esps.length; i++) {
-	// 	console.log("esps", which_esps[i]);
-	// 	process_esp(which_esps, i);
-	// }
+	for (var i = 0; i < which_esps.length; i++) {
+		console.log("esps", which_esps[i]);
+		process_esp(which_esps, i);
+	}
 }
 
 //=== Installation de la periodicite des requetes GET============
