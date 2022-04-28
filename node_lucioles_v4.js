@@ -1,5 +1,4 @@
 // Importation des modules
-var path = require('path');
 var path = require("path");
 var moment = require("moment");
 const cookieParser = require("cookie-parser");
@@ -29,7 +28,7 @@ async function listDatabases(client){
     
     console.log("Databases in Mongo Cluster : \n");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+}
 
 //----------------------------------------------------------------
 // asynchronous function named main() where we will connect to our
@@ -122,7 +121,6 @@ async function v0() {
       val = message.value;
 
       // Debug : Gerer une liste de who pour savoir qui utilise le node server
-      let wholist = [];
       var index = wholist.findIndex((x) => x.who == wh);
       if (index === -1) {
         wholist.push({
@@ -175,7 +173,7 @@ app.get("/connectedESP", function (req, res) {
     //================================================================
     // Fermeture de la connexion avec la DB lorsque le NodeJS se termine.
     //
-    process.on("exit", (code) => {
+    process.on("exit", code => {
       if (mg_client && mg_client.isConnected()) {
         console.log("mongodb connection is going to be closed ! ");
         mg_client.close();

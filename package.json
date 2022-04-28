@@ -1,28 +1,32 @@
 {
    "engines": {
-	"node": "14.18.1"
-  },
-  "name": "monappjs_v1",
-  "version": "1.0.0",
-  "main": "node_lucioles_v4.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_lucioles_v4.js" 
-  },
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/missdieye/projet-IOT.git"
-  },
-  "bugs": {
-    "url": "https://github.com/missdieye/projet-IOT/issues"
-  },
-  "homepage": "https://github.com/missdieye/projet-IOT#readme",
-  "description": "",
-  "dependencies": {
-    "express": "^4.17.3",
-    "mongodb": "^4.5.0",
-    "mqtt": "^4.3.7"
-  }
+      "node": "14.18.1"
+   },
+   "name": "monappjs_v1",
+   "version": "1.0.0",
+   "main": "node_lucioles_v4.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node_lucioles_v4.js"
+   },
+   "author": "",
+   "license": "ISC",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/missdieye/projet-IOT.git"
+   },
+   "bugs": {
+      "url": "https://github.com/missdieye/projet-IOT/issues"
+   },
+   "homepage": "https://github.com/missdieye/projet-IOT#readme",
+   "description": "",
+   "dependencies": {
+      "alert": "^5.0.10",
+      "cookie-parser": "^1.4.6",
+      "express": "^4.17.3",
+      "express-session": "^1.17.2",
+      "moment": "^2.29.3",
+      "mongodb": "^4.5.0",
+      "mqtt": "^4.3.7"
+   }
 }
