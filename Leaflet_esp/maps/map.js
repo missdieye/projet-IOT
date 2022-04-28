@@ -4,7 +4,7 @@
 var map = L.map("map", {
   center: [20.0, 5.0],
   minZoom: 2,
-  zoom: 4,
+  zoom: 3,
   zoomControl: false,
 });
 
@@ -178,4 +178,3 @@ function onMapClick(e) {
 
 //popup
 map.on("click", onMapClick);
-
