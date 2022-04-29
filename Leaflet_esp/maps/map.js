@@ -23,18 +23,16 @@ $.ajax({
   url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
   type: "GET",
   headers: { Accept: "application/json" },
-    success: function (resultat) {
-        resultat.forEach(function (element) {
-            if (
-            element.who === element.macEsp
-            ) {
-              mylocation_lon = element.longitude; // lon WGS84
-              mylocation_lat = element.lattitude;
-            };    
-        });
-    },
+  success: function (resultat) {
+    resultat.forEach(function (element) {
+      if (element.who === element.macEsp) {
+        mylocation_lon = element.longitude; // lon WGS84
+        mylocation_lat = element.lattitude;
+      }
+    });
+  },
 });
-
+let node_url = "http://localhost:3000";
 //popup function
 function onMapClick(e) {
   popup
@@ -43,6 +41,7 @@ function onMapClick(e) {
     .openOn(map);
 
   //getting json function
+
   $(document).ready(function () {
     $.ajax({
       url:
@@ -54,7 +53,7 @@ function onMapClick(e) {
       dataType: "json",
       success: function (data) {
         // storing json data in variables
-        
+
         weatherlocation_lon = data.coord.lon; // lon WGS84
         weatherlocation_lat = data.coord.lat; // lat WGS84
         weatherstationname = data.name; // Name of Weatherstation
@@ -140,7 +139,15 @@ function onMapClick(e) {
         } else {
           winddirectionstring = " - currently no winddata available - ";
         }
-
+        $.ajax({
+          url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
+          type: "GET",
+          headers: { Accept: "application/json" },
+          success: function (resultat) {
+            mylocation_lon = resultat.longitude; // lon WGS84
+            mylocation_lat = resultat.lattitude;
+          },
+        });
         //Popup with content
         var fontsizesmall = 1;
         popup.setContent(
