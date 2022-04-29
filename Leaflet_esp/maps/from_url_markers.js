@@ -1,5 +1,5 @@
 $.ajax({
-    // On fait une requete et on recupere un geo json
+    // On fait une requete et on recupere un geojson
     
     //URL de l'API
     url: "https://data.rennesmetropole.fr/explore/dataset/topologie-des-stations-le-velo-star/download/?format=geojson&timezone=Europe/Berlin",

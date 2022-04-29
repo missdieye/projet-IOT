@@ -18,6 +18,23 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var popup = L.popup();
 
+var node_url = "http://localhost:3000";
+$.ajax({
+  url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
+  type: "GET",
+  headers: { Accept: "application/json" },
+    success: function (resultat) {
+        resultat.forEach(function (element) {
+            if (
+            element.who === element.macEsp
+            ) {
+              mylocation_lon = element.longitude; // lon WGS84
+              mylocation_lat = element.lattitude;
+            };    
+        });
+    },
+});
+
 //popup function
 function onMapClick(e) {
   popup
@@ -37,6 +54,7 @@ function onMapClick(e) {
       dataType: "json",
       success: function (data) {
         // storing json data in variables
+        
         weatherlocation_lon = data.coord.lon; // lon WGS84
         weatherlocation_lat = data.coord.lat; // lat WGS84
         weatherstationname = data.name; // Name of Weatherstation
@@ -44,7 +62,7 @@ function onMapClick(e) {
         weathertime = data.dt; // Time of weatherdata (UTC)
         temperature = data.main.temp; // Kelvin
         airpressure = data.main.pressure; // hPa
-        airhumidity = data.main.humidity; 
+        airhumidity = data.main.humidity;
         temperature_min = data.main.temp_min; // Kelvin
         temperature_max = data.main.temp_max; // Kelvin
         windspeed = data.wind.speed; // Meter per second
