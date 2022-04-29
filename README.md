@@ -1,4 +1,4 @@
-# Mini Projet TechnologiesWeb Master 1 MIAGE 2021/2022 par Diallo Binta et Dieye Khadidiatou
+# Projet IoT Master 1 MIAGE 2021/2022 par Diallo Binta et Dieye Khadidiatou
 
 ## Informations Générales
 Notre application intitulée **DIADIE** permet de **trouver un restaurant dans une liste donnée** et d'**afficher toutes les informations le concernant** notamment sa **position**, les **plats et menus** qu'il sert.
