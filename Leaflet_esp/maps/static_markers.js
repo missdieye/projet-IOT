@@ -1,4 +1,4 @@
-//
+/* //
 //See post: https://asmaloney.com/2014/01/code/creating-an-interactive-map-with-leaflet-and-openstreetmap/
 var markers = [
 //  {
@@ -115,4 +115,33 @@ for (var i = 0; i < markers.length; ++i) {
 		'</a>'
 	)
 	.addTo(map)
-}
+} */
+
+//var node_url = "localhost:3000";
+$.ajax({
+  url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
+  type: "GET",
+  headers: { Accept: "application/json" },
+  success: function (resultat) {
+    resultat.forEach((element) => {
+      mylocation_lon = element.longitude; // lon WGS84
+      mylocation_lat = element.lattitude;
+      var myURL = jQuery('script[src$="static_markers.js"]')
+        .attr("src")
+        .replace("static_markers.js", "");
+
+      const myIcon = L.icon({
+        iconUrl: myURL + "images/pin24.png",
+        iconRetinaUrl: myURL + "images/pin48.png",
+        iconSize: [29, 24],
+        iconAnchor: [9, 21],
+        popupAnchor: [0, -14],
+      });
+      L.marker([mylocation_lat, mylocation_lon], {
+        icon: myIcon,
+      }).addTo(map);
+    });
+  },
+  error: function (resultat, statut, erreur) {},
+  complete: function (resultat, statut) {},
+});
