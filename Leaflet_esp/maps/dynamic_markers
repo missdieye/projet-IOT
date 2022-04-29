@@ -1,4 +1,4 @@
-let node_url = "http://localhost:3000";
+
 $.ajax({
   url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
   type: "GET",
