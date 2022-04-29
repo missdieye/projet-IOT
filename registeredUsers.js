@@ -11,23 +11,6 @@ function getUser(path_on_node) {
 		headers: { Accept: "application/json" },
 		success: function (resultat) {
 			resultat.forEach(function (element) {
-				$.ajax({
-					url: node_url.concat("/connectedESP"), // URL to "GET" : /connectedESP
-					type: "GET",
-					headers: { Accept: "application/json" },
-					success: function (resultat) {
-						resultat.forEach(function (element2) {
-							if (element2.who === element.macEsp) {
-								console.log("element.lastConnect", element2.lastConnect);
-							}
-						});
-					}
-				});
-				// if (lastConnect.length > 0) {
-				// 	var lasttime = lastConnect[0];
-				// } else {
-				// 	var lasttime = "Pas encore";
-				// }
 				if (element.permission_admin) {
 					var permission = "ESP Accepté";
 
@@ -36,14 +19,30 @@ function getUser(path_on_node) {
 					var permission = "ESP Refusé";
 					var form = `<form action="/accepter/${element.macEsp}" method="post"><button class="confirmer">Accepter</button></form>`;
 				}
+				var idTd = "lasttime" + element.macEsp;
 				$("#tableUsers").append(`<tr>
 			  <td>${element.username}</td>
 			  <td>${element.macEsp}</td>
 			  <td>{${element.lattitude},${element.longitude}}</td>
 			  <td> ${permission}</td>
-			  <td id="lasttime"></td>
+			  <td id=${idTd}></td>
               <td>${form}</td>
 		  </tr>`);
+				$.ajax({
+					url: node_url.concat("/connectedESP"), // URL to "GET" : /connectedESP
+					type: "GET",
+					headers: { Accept: "application/json" },
+					success: function (resultat) {
+						resultat.forEach(function (element2) {
+							if (element2.who === element.macEsp) {
+								console.log("idTd", idTd);
+								document.getElementById(idTd).innerHTML = ` ${element2.lastConnect}`;
+							} else {
+								document.getElementById(idTd).innerHTML = "Pas encore connecté";
+							}
+						});
+					}
+				});
 			});
 			// console.log("resultat", resultat);
 		},
