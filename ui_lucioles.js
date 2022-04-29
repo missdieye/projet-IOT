@@ -60,7 +60,7 @@ function init() {
 	//=== Gestion de la flotte d'ESP =================================
 
 	// processAuthorizedESP("/authorizedEsp");
-	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74", "B4:E6:2D:AC:C0:C1"];
+	var which_esps = ["30:AE:A4:93:50:0C", "24:6F:28:7B:96:74"];
 	// console.log("esps", which_esps);
 
 	for (var i = 0; i < which_esps.length; i++) {
