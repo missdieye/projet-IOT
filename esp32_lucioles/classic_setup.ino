@@ -51,6 +51,7 @@ void connect_wifi(){
 // wifiMulti.addAP("GMAP", "vijx47050");
  wifiMulti.addAP("PlanetCampus - Prive 004419", "pfjYj5maAPXSE");
  wifiMulti.addAP("PlanetCampus - Prive 004421", "Mq3pwk9gYuJgn");
+ wifiMulti.addAP("SFR_0028", "8aes28zvpn2jut35szad");
  wifiMulti.addAP("safouane", "dibachat");
  wifiMulti.addAP("Diane", "bintastik");
  //wifiMulti.addAP("TP-Link_F83F", "40082831");
