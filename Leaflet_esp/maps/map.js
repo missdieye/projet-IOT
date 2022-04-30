@@ -131,21 +131,16 @@ function onMapClick(e) {
           success: function (resultat) {
             mylocation_lon = resultat.longitude; // lon WGS84
             mylocation_lat = resultat.lattitude;
-            mylocation_lon_inf = resultat.longitude - 1;
-            mylocation_lat_inf = resultat.longitude - 1;
-            mylocation_lat_sup = resultat.longitude + 1;
-            mylocation_lon_sup = resultat.longitude + 1;
-
-
           },
         });
 
-        if (
-          weatherlocation_lat >= mylocation_lat_inf &&
-          weatherlocation_lat >= mylocation_lat_sup &&
-          weatherlocation_lon >= mylocation_lon_inf &&
-          weatherlocation_lon >= mylocation_lon_sup
-        ) {
+        d = Math.sqrt(
+          (mylocation_lat - weatherlocation_lat) ^
+            (2 + (mylocation_lon - weatherlocation_lon)) ^
+            2
+        );
+
+        if (d <= 4) {
           var fontsizesmall = 1;
           popup.setContent(
             "Weatherdata:<br>" +
