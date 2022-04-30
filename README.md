@@ -50,12 +50,14 @@ Les différentes fonctionnalités de **DIADIE** sont :
 -L'utilisateur peut demander de publier les informations de son ESP, les dépublier ou même les supprimer;
 - Pilotage de la communauté : l'administrateur peut donner la permission à un utilisateur de publier sur notre app.Ou bien même lui refuser sa publication.
 - Placer dans la map, les ESP des différents utilisateurs autorisés ainsi que leur température.
+- Lorsque l'on clique sur un marker on peut observer le nom de l'utisateur ainsi que l'adresse mac de ESP
 - Sur la map afficher en temps réel la température de toutes les autres villes, dont aucun ESP autorisé n'y est.
 
 ## Fonctionnalité qui fait banko
 - Presque toutes les applications qui écoutent les topics "sensors/light" et "sensors/temp" crashent quand un message qui n'est pas du Json(mauvais format ou écriture) est envoyé.
 Nous avons résolu ce problème et notre app ne crash plus;
 - Nous avons aussi déployer une bonne gestion de la communauté. Ce n'est pas n'importe quel ESP qui peut publier ses informations.
+- La façons dont les données sont affichés sur la map ainsi que les marker indiquant la position d'un utilisateur.
 
 ## Technologies
 Les technologies utilisé sont:

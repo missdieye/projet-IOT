@@ -141,7 +141,10 @@ $.ajax({
         icon: myIcon,
       })
         .bindPopup(
-         
+          "<b>adress ESP</b> =   " +
+            element.macEsp +
+            "<br> <b>Nom du user</b> = " +
+            element.username
         )
         .addTo(map);
     });
