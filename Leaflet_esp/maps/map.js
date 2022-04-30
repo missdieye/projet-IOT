@@ -131,12 +131,20 @@ function onMapClick(e) {
           success: function (resultat) {
             mylocation_lon = resultat.longitude; // lon WGS84
             mylocation_lat = resultat.lattitude;
+            mylocation_lon_inf = resultat.longitude - 1;
+            mylocation_lat_inf = resultat.longitude - 1;
+            mylocation_lat_sup = resultat.longitude + 1;
+            mylocation_lon_sup = resultat.longitude + 1;
+
+
           },
         });
 
         if (
-          mylocation_lat === weatherlocation_lat &&
-          mylocation_lon === weatherlocation_lon
+          weatherlocation_lat >= mylocation_lat_inf &&
+          weatherlocation_lat >= mylocation_lat_sup &&
+          weatherlocation_lon >= mylocation_lon_inf &&
+          weatherlocation_lon >= mylocation_lon_sup
         ) {
           var fontsizesmall = 1;
           popup.setContent(
