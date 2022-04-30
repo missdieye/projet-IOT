@@ -116,7 +116,7 @@ for (var i = 0; i < markers.length; ++i) {
 	)
 	.addTo(map)
 } */
-
+const refreshT = 10000;
 //var node_url = "localhost:3000";
 $.ajax({
   url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
@@ -139,7 +139,15 @@ $.ajax({
       });
       L.marker([mylocation_lat, mylocation_lon], {
         icon: myIcon,
-      }).addTo(map);
+      })
+        .bindPopup(
+          window.setInterval(
+            
+            "/esp/temp", // param 1 for get_samples()
+            
+          )
+        )
+        .addTo(map);
     });
   },
   error: function (resultat, statut, erreur) {},
