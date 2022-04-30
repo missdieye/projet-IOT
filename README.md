@@ -32,7 +32,8 @@ POur ce projet on a utilisé les API suivants :
 Les différentes fonctionnalités de **DIADIE** sont :
 - Le déployement sur heroku;
 - Voir les températures en temps réel sur les graphes des utilisateurs autorisés;
-- Sur la map afficher en temps réel la température des graphes
+- Pour chaque utilisateur crée dans la base nous lui avons attribué un marker dans la base afin de voir sa localisation dans la map.
+- Sur la map afficher en temps réel la température des graphes.
 - Utilisateur peut créer son compte s'y connecter et se déconnecter;
 - Pilotage de la communauté : Un La permission à des utilisateur de publier sur notre app
 
