@@ -134,13 +134,16 @@ function onMapClick(e) {
           },
         });
 
-        d = Math.sqrt(
+      /*   d = Math.sqrt(
           (mylocation_lat - weatherlocation_lat) ^
             (2 + (mylocation_lon - weatherlocation_lon)) ^
             2
-        );
+        ); */
 
-        if (d <= 4) {
+        if (
+          mylocation_lat === weatherlocation_lat &&
+          mylocation_lon === weatherlocation_lon
+        ) {
           var fontsizesmall = 1;
           popup.setContent(
             "Weatherdata:<br>" +
