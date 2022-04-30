@@ -24,34 +24,37 @@ Le projet est **opensource**.
 
 ## API
 POur ce projet on a utilisé les API suivants :
-- des api/restaurants : permettant d'afficher la liste des restaurants, d'en ajouter, le supprimer ou voir les détails le concernant ;
-- et un api/login permettant de s'authentifier.
+- l'API https://api.openweathermap.org/ permettant de récupérer les données météorologique en temps réel de tous endroit dans le monde dans notre map en particulier.
+-L'API local api/coordonnees qui permet de récupérer les coordonnées d'un utisateur inscrit dans notre application notamment la latitude et longitude.
+
 
 ## Fonctionnalités
 Les différentes fonctionnalités de **DIADIE** sont :
-- une fonctionnalité permettant d'afficher la liste des restaurants dans un tableau ;
-- une fonctionnalité permettant de rechercher un restaurant par son nom ;
-- Une fonctionnalité permettant de supprimer un restaurant ;
-- une fonctionnalité permettant d'ajouter un restaurant ;
-- une fonctionnalité permettant d'afficher les détails d'un restaurant donné ;
-- Une fonctionnalité permettant d'afficher des photos et vidéos d'un restaurant;
-- Une fonctionnalité permettant d'afficher la position d'un restaurant donné;
-- Une fonctionnalité permettant d'afficher aléatoirement une carte ainsi que des menus(menu midi, menu gastronomique) avec leur photos, description et prix pour chaque restaurant. 
-- Une fonctionnalité permettant à l'utilisateur de passer une commande à la carte ou un menu.
-- Une fonctionnalité d'authentification qui permet à l'utilisateur de s'identifier avant d'accéder à l'application et se déconnecter après utilisation. 
+- Le déployement sur heroku;
+- Voir les températures en temps réel sur les graphes des utilisateurs autorisés;
+- Sur la map afficher en temps réel la température des graphes
+- Utilisateur peut créer son compte s'y connecter et se déconnecter;
+- Pilotage de la communauté : Un La permission à des utilisateur de publier sur notre app
+
+
+## Fonctionnalité qui fais banko
 
 ## Technologies
 Les technologies utilisé sont:
-- VueJS,
+- Arduino,
 - NodeJS,
-- MongoDB
+- MongoDB atlas,
+- Html,
+- Jquery,
+- heroku,
+
 
 ## Comment contribuer
 Pour contribuer, veuillez demander aux auteurs pour que l'on puisse créer un document contributeur.
 
 ## Versionnement
 - Version 1
-- Version 2 Ajouter d'autres fonctionnalités tel que permettre à l'utilisateur de créer son compte utilsateur...
+- Version 2 Ajouter d'autres fonctionnalités tel que permettre à l'utilisateur de rester connecter sur l'application en quittant la page de pilotage de la communauté ...
 
 Dans les prochaines versions, nous souhaitions permettre à l'utilisateur de créer son identifiant et de se connecter avec et lui permettre de visiter le site sans identification s'il ne souhaite pas commander.
 Pour le moment l'utilisateur peut se connecter avec les identifiants que nous avons créé nous même dans la base de données.
@@ -59,6 +62,5 @@ Pour le moment l'utilisateur peut se connecter avec les identifiants que nous av
 ## Crédit
 
 Pour la réalisation de ce projet, nous nous sommes resourcées de :
-- La bibliothèque vue materiel : https://www.creative-tim.com/vuematerial/getting-started  
-- un tuto sur le site suivant pour la réalisation de la map : https://www.nicolaskempf.fr/creez-vos-cartes-interactives-avec-vuejs-et-leaflet/
+
 

@@ -141,11 +141,7 @@ $.ajax({
         icon: myIcon,
       })
         .bindPopup(
-          window.setInterval(
-            
-            "/esp/temp", // param 1 for get_samples()
-            
-          )
+         
         )
         .addTo(map);
     });
