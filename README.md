@@ -78,4 +78,5 @@ Pour contribuer, veuillez demander aux auteurs pour que l'on puisse créer un do
 
 Pour la réalisation de ce projet, nous nous sommes resourcées de :
 - https://nodejs.org/en/
-
+- https://openweathermap.org/api
+- OpenClassroom pour la gestion des bugs.
