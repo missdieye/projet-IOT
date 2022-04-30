@@ -319,7 +319,7 @@ app.post("/refuser/:macEsp", function (req, res) {
 	});
 });
 
-// Demande d'un utilisateur pour publier ces données
+// Utilisateur pour publier ces données
 app.post("/publier", function (req, res) {
 	dbo.collection("users").updateOne({ macEsp: req.session.macEsp }, { $set: { permission_user: true } }, function (err, result) {
 		if (err) throw err;
