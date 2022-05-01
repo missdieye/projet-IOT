@@ -1,5 +1,5 @@
-// var node_url = "https://iot22112951m1.herokuapp.com";
-var node_url = "http://localhost:3000";
+var node_url = "https://iot22112951m1.herokuapp.com";
+// var node_url = "http://localhost:3000";
 //Pour ajouter dans la carte les données des ESP autorisés
 setInterval(
 	$.ajax({
