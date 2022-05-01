@@ -17,7 +17,7 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 //BASEMAPS
 
 var popup = L.popup();
-let node_url = "http://localhost:3000";
+//let node_url = "http://localhost:3000";
 //popup function
 function onMapClick(e) {
   popup
