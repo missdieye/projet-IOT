@@ -43,7 +43,7 @@ setInterval(
 									"<br> <b>User</b> = " +
 									element.username +
 									"<br> <b>Température</b> = " +
-									temp+ "°C"
+									temp+ " °C"
 							)
 							.addTo(map);
 					}
