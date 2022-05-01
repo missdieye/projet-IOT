@@ -16,8 +16,6 @@ Ensuite, pensez à installer les différents modules du dossier client en utilis
 Pour démarrer le serveur, il suffit de se positionner sur le dossier du serveur et taper la commande suivante : `node node_lucioles_v4.js`.
 Une base de données mongoDB cloud a été créé à cet effet et est connectée au projet.
 
-Pour afficher les markers d'un utilsateurs inscrit dans la base il faudra impérativement que le serveur soit allumer.
-
 ## Auteurs
 Cette précieuse application du nom de **DIADIE** est le résultat d'un travail collaboratif entre deux étudiantes en master 1 MIAGE à l'université Côte d'Azur de Nice dont :
 - **DIALLO Fatoumata Binta** ,
