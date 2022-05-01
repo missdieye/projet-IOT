@@ -124,109 +124,47 @@ function onMapClick(e) {
         } else {
           winddirectionstring = " - currently no winddata available - ";
         }
-        $.ajax({
-          url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
-          type: "GET",
-          headers: { Accept: "application/json" },
-          success: function (resultat) {
-            mylocation_lon = resultat.longitude; // lon WGS84
-            mylocation_lat = resultat.lattitude;
-          },
-        });
-
-      /*   d = Math.sqrt(
-          (mylocation_lat - weatherlocation_lat) ^
-            (2 + (mylocation_lon - weatherlocation_lon)) ^
-            2
-        ); */
-
-        if (
-          mylocation_lat === weatherlocation_lat &&
-          mylocation_lon === weatherlocation_lon
-        ) {
-          var fontsizesmall = 1;
-          popup.setContent(
-            "Weatherdata:<br>" +
-              "<img src=" +
-              weathercondtioniconhtml +
-              "><br>" +
-              weatherconditionstring +
-              " (Weather-ID: " +
-              weatherconditionid +
-              "): " +
-              weatherconditiondescription +
-              "<br><br>Temperature: " +
-              "testtemp" +
-              "°C<br>Airpressure: " +
-              airpressure +
-              " hPa<br>Humidityt: " +
-              airhumidity +
-              "%" +
-              "<br>Cloudcoverage: " +
-              cloudcoverage +
-              "%<br><br>Windspeed: " +
-              windspeedkmh +
-              " km/h<br>Wind from direction: " +
-              winddirectionstring +
-              " (" +
-              winddirection +
-              "°)" +
-              "<br><br><font size=" +
-              fontsizesmall +
-              ">Datasource:<br>openweathermap.org<br>Measure time: " +
-              weathertimenormal +
-              "<br>Weatherstation: " +
-              weatherstationname +
-              "<br>Weatherstation-ID: " +
-              weatherstationid +
-              "<br>Weatherstation Coordinates: " +
-              mylocation_lon +
-              ", " +
-              mylocation_lat
-          );
-        } else {
-          //Popup with content
-          var fontsizesmall = 1;
-          popup.setContent(
-            "Weatherdata:<br>" +
-              "<img src=" +
-              weathercondtioniconhtml +
-              "><br>" +
-              weatherconditionstring +
-              " (Weather-ID: " +
-              weatherconditionid +
-              "): " +
-              weatherconditiondescription +
-              "<br><br>Temperature: " +
-              temperaturecelsius +
-              "°C<br>Airpressure: " +
-              airpressure +
-              " hPa<br>Humidityt: " +
-              airhumidity +
-              "%" +
-              "<br>Cloudcoverage: " +
-              cloudcoverage +
-              "%<br><br>Windspeed: " +
-              windspeedkmh +
-              " km/h<br>Wind from direction: " +
-              winddirectionstring +
-              " (" +
-              winddirection +
-              "°)" +
-              "<br><br><font size=" +
-              fontsizesmall +
-              ">Datasource:<br>openweathermap.org<br>Measure time: " +
-              weathertimenormal +
-              "<br>Weatherstation: " +
-              weatherstationname +
-              "<br>Weatherstation-ID: " +
-              weatherstationid +
-              "<br>Weatherstation Coordinates: " +
-              weatherlocation_lon +
-              ", " +
-              weatherlocation_lat
-          );
-        }
+        //Popup with content
+        var fontsizesmall = 1;
+        popup.setContent(
+          "Weatherdata:<br>" +
+            "<img src=" +
+            weathercondtioniconhtml +
+            "><br>" +
+            weatherconditionstring +
+            " (Weather-ID: " +
+            weatherconditionid +
+            "): " +
+            weatherconditiondescription +
+            "<br><br>Temperature: " +
+            temperaturecelsius +
+            "°C<br>Airpressure: " +
+            airpressure +
+            " hPa<br>Humidityt: " +
+            airhumidity +
+            "%" +
+            "<br>Cloudcoverage: " +
+            cloudcoverage +
+            "%<br><br>Windspeed: " +
+            windspeedkmh +
+            " km/h<br>Wind from direction: " +
+            winddirectionstring +
+            " (" +
+            winddirection +
+            "°)" +
+            "<br><br><font size=" +
+            fontsizesmall +
+            ">Datasource:<br>openweathermap.org<br>Measure time: " +
+            weathertimenormal +
+            "<br>Weatherstation: " +
+            weatherstationname +
+            "<br>Weatherstation-ID: " +
+            weatherstationid +
+            "<br>Weatherstation Coordinates: " +
+            weatherlocation_lon +
+            ", " +
+            weatherlocation_lat
+        );
       },
       error: function () {
         alert("error receiving wind data from openweathermap");
