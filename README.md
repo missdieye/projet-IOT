@@ -45,14 +45,16 @@ POur ce projet on a utilisé les API suivants :
 
 ## Fonctionnalités
 Les différentes fonctionnalités de **DIADIE** sont :
+
 - Voir les températures des utilisateurs autorisés, en temps réel sur les graphes;
 - Utilisateur peut créer son compte s'y connecter et se déconnecter;
 -L'utilisateur peut demander de publier les informations de son ESP, les dépublier ou même les supprimer;
-- Pilotage de la communauté : l'administrateur peut donner la permission à un utilisateur de publier sur notre app.Ou bien même lui refuser sa publication.
+- Pilotage de la communauté : l'administrateur peut donner la permission à un utilisateur de publier sur notre app ou bien même lui refuser sa publication.
+- A l'aide de l'API openWeather l'utilisateur peut voir la météo de tout point dans la map
 - Placer dans la map, les ESP des différents utilisateurs autorisés ainsi que leur température.
 - Lorsque l'on clique sur un marker on peut observer le nom de l'utisateur son esp/temp s'il est connecté ainsi que l'adresse mac de son ESP
 - Sur la map afficher en temps réel la température de toutes les autres villes, dont aucun ESP autorisé n'y est.
-- Quand on se connecte avec l'admin tu peux gérer la publication des esp : autorisé ou refusé.
+- Quand on se connecte avec l'admin l'utilisateur peut gérer la publication des esp : autorisé ou refusé.
 
 ## Fonctionnalité qui fait banko
 - Presque toutes les applications qui écoutent les topics "sensors/light" et "sensors/temp" crashent quand un message qui n'est pas du Json(mauvais format ou écriture) est envoyé.
