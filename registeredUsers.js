@@ -33,14 +33,24 @@ function getUser(path_on_node) {
 					type: "GET",
 					headers: { Accept: "application/json" },
 					success: function (resultat) {
-						resultat.forEach(function (element2) {
-							if (element2.who === element.macEsp) {
-								console.log("idTd", idTd);
-								document.getElementById(idTd).innerHTML = ` ${element2.lastConnect}`;
-							} else {
-								document.getElementById(idTd).innerHTML = "Pas encore connecté";
+						if (resultat.length === 0) {
+							document.getElementById(idTd).innerHTML = "Pas encore connecté";
+						} else {
+							for (let index = 0; index < resultat.length; index++) {
+								const element2 = resultat[index];
+
+								if (element2.who === element.macEsp) {
+									console.log("idTd", element2.lastConnect);
+									document.getElementById(idTd).innerHTML = ` ${element2.lastConnect}`;
+								} else {
+									var contenu = document.getElementById(idTd).innerHTML;
+									console.log("contenu", contenu);
+									if (contenu === "") {
+										document.getElementById(idTd).innerHTML = "Pas encore connecté";
+									}
+								}
 							}
-						});
+						}
 					}
 				});
 			});

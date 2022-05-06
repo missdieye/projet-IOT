@@ -137,7 +137,7 @@ function processAuthorizedESP(path_on_node) {
 	node_url = "https://iot22112951m1.herokuapp.com";
 	// node_url = "http://localhost:3000";
 	$.ajax({
-		url: node_url.concat(path_on_node), // URL to "GET" : /connectedESP
+		url: node_url.concat(path_on_node), // URL to "GET" :
 		type: "GET",
 		headers: { Accept: "application/json ;charset=utf-8" },
 		dataType: "json",

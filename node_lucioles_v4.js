@@ -123,9 +123,6 @@ async function v0() {
 					wholist.push({ who: wh, lastConnect: moment().format("MMMM DD YYYY, h:mm:ss") });
 				}
 				// console.log("wholist using the node server :", wholist);
-				app.get("/connectedESP", function (req, res) {
-					return res.send(wholist);
-				});
 
 				// Mise en forme de la donnee � stocker => dictionnaire
 				// Le format de la date est iomportant => compatible avec le
@@ -160,7 +157,9 @@ async function v0() {
 			//	console.log("List of collections currently in DB: ", collInfos);
 			//});
 		}); // end of 'message' callback installation
-
+		app.get("/connectedESP", function (req, res) {
+			return res.send(wholist);
+		});
 		//================================================================
 		// Fermeture de la connexion avec la DB lorsque le NodeJS se termine.
 		//

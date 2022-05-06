@@ -3,7 +3,7 @@ var node_url = "https://iot22112951m1.herokuapp.com";
 //Pour ajouter dans la carte les données des ESP autorisés
 setInterval(
 	$.ajax({
-		url: node_url.concat("/coordonnees"), // URL to "GET" : /connectedESP
+		url: node_url.concat("/coordonnees"), // URL to "GET" : /coordonnees
 		type: "GET",
 		headers: { Accept: "application/json" },
 		success: function (resultat) {
